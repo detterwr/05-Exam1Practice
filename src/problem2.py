@@ -2,8 +2,8 @@
 PRACTICE Test 1, problem 2.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Will Detterman.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -102,7 +102,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -110,6 +110,20 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+
+
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    line = rg.Line(rectangle.get_upper_right_corner(),rectangle.get_lower_left_corner())
+    line.arrow = 'last'
+    line.attach_to(window)
+    circle.fill_color = rectangle.outline_color
+
+    window.render()
+
+
+
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -173,7 +187,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -181,6 +195,19 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+
+    totalp1 = rect.get_upper_left_corner()
+    totalp2 = rect.get_lower_right_corner()
+
+    rect.attach_to(win)
+
+    for _ in range(n):
+        rectangle2 = rg.Rectangle(totalp1, totalp2)
+        totalp1 = rg.Point(totalp1.x - delta, totalp1.y - delta)
+        totalp2 = rg.Point(totalp2.x + delta, totalp2.y + delta)
+        rectangle2.attach_to(win)
+    win.render()
+
 
 
 # ----------------------------------------------------------------------
