@@ -2,8 +2,8 @@
 PRACTICE Test 1, problem 3.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Will Detterman.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -97,6 +97,20 @@ def run_test_problem3a():
 
     window3.close_on_mouse_click()
 
+    # Window 4:
+    title = 'Problem 3a. Test 5: Start at (30, 30), 20 lines'
+    window4 = rg.RoseWindow(450, 300, title)
+
+    # Test 5 (it is on window 4):
+    point = rg.Point(30, 30)
+    expected = 4
+    answer = problem3a(window4, point, 2)
+    print()
+    print('Test 5 expected:', expected)
+    print('       actual:  ', answer)
+
+    window4.close_on_mouse_click()
+
     # ------------------------------------------------------------------
     # TO DO: 2 (continued).
     # Below this comment (or integrated with one of the above tests,
@@ -137,7 +151,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -145,6 +159,22 @@ def problem3a(window, point, n):
     #    DIFFICULTY:      7 or 8
     #    TIME ESTIMATE:   20 to 35 minutes.
     # ------------------------------------------------------------------
+
+    thick = 1
+    thicksum = 0
+    pt1 = point
+    pt2 = rg.Point(pt1.x, pt1.y + 50)
+    for _ in range(n):
+        line = rg.Line(pt1, pt2)
+        line.thickness = thick
+        line.attach_to(window)
+        if (thick < 13):
+            thick = thick +2
+        pt1 = rg.Point(pt1.x + 20, pt1.y + 10)
+        pt2 = rg.Point(pt1.x, pt1.y + 50)
+        thicksum = thicksum + line.thickness
+    window.render()
+    return thicksum
 
 
 def run_test_problem3b():
@@ -201,7 +231,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ####################################################################
@@ -214,6 +244,23 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # ------------------------------------------------------------------
+
+    window = rg.RoseWindow(400, 650)
+    lines = 3
+    startpt = point1
+    sum = 0
+
+    for _ in range(m):
+        sum = sum + problem3a(window, startpt, lines)
+        lines = lines + 2
+        startpt = rg.Point(startpt.x, startpt.y + 60)
+    window.render()
+
+    window.close_on_mouse_click()
+
+    return sum
+
+
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
